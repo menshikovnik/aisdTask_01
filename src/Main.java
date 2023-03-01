@@ -1,6 +1,8 @@
 public class Main {
     public static void main(String[] args) {
         Deque dq = new Deque(5);
+        dq.addFront(100);
+        dq.addFront(100);
         dq.addRear(1);
         dq.addRear(2);
         dq.addRear(7);

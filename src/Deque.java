@@ -13,7 +13,7 @@ public class Deque {
 
     public void addFront(int value) {
         if (!isFull()) {
-            if (front == 0 && arr[front] != 0) {
+            if (front == 0 && arr[front] != 0 && isEmpty(size)) {
                 front = size;
                 arr[front] = value;
                 return;
@@ -27,7 +27,9 @@ public class Deque {
 
     public void addRear(int value) {
         if (!isFull()) {
-
+            if (rear == 0 && !isEmpty(rear)){
+                rear++;
+            }
             if (isEmpty(rear)) {
                 arr[rear] = value;
                 if (rear != size) {
