@@ -1,13 +1,13 @@
 public class Deque {
-    private int[] arr;
+    private final int[] arr;
     private int front;
     private int rear;
-    private int size;
+    private final int size;
 
     public Deque(int size) {
         arr = new int[size];
         front = 0;
-        rear = 0;
+        rear = -1;
         this.size = arr.length - 1;
     }
 
@@ -27,17 +27,20 @@ public class Deque {
 
     public void addRear(int value) {
         if (!isFull()) {
-            if (rear == 0 && !isEmpty(rear)){
+            if (rear == 0 && isEmpty(0)) {
+                arr[rear] = value;
+                return;
+            }
+            if (rear != size) {
                 rear++;
+            } else if (isEmpty(0)) {
+                rear = 0;
             }
             if (isEmpty(rear)) {
                 arr[rear] = value;
-                if (rear != size) {
-                    rear++;
-                } else if (isEmpty(0)) {
-                    rear = 0;
-                }
             }
+
+
         } else System.err.println("Переполнение");
     }
 
@@ -51,19 +54,24 @@ public class Deque {
     }
 
     public void deleteRear() {
+        if (rear == 0 && !isEmpty(rear)) {
+            arr[rear] = 0;
+            if (!isEmpty(size)) {
+                rear = size;
+                return;
+            }
+        }
         if (!isEmpty(rear)) {
             arr[rear] = 0;
             rear--;
         }
-        if (rear == 0) {
-            rear = size - 1;
-            arr[rear] = 0;
-            rear--;
+        if (rear == -1) {
+            rear = size;
         }
     }
 
     private boolean isEmpty(int x) {
-        return arr[x] == 0;
+        return x >= 0 && arr[x] == 0;
     }
 
     private boolean isFull() {
